@@ -27,9 +27,10 @@ export default function WallCalendar() {
 
   const { rangeStart, rangeEnd, selecting, handleDayClick, clearRange } =
     useDateRange({ year, month, onSingleDayTap: openNoteModal });
-  const palette   = MONTH_PALETTES[month];
-  const cells     = buildCalendarCells(year, month);
-  const cardColor = isDark ? "#1c1c24" : "#fff";
+
+  const palette = MONTH_PALETTES[month];
+  const cells   = buildCalendarCells(year, month);
+
   return (
     <>
       <style>{buildCalendarStyles(palette, isDark)}</style>
@@ -51,8 +52,8 @@ export default function WallCalendar() {
               />
 
               <ChevronDivider
-                cardColor={cardColor}
-                accentColor={palette.accent}
+                isDark={isDark}
+                palette={palette}
               />
 
               <MonthNav

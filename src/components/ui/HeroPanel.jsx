@@ -11,11 +11,17 @@ export default function HeroPanel({ src, monthName, year }) {
         alt={monthName}
         onLoad={() => setImgLoaded(true)}
       />
-      {/* Subtle dark vignette only at very bottom for text legibility */}
-      <div style={{
-        position: "absolute", inset: 0,
-        background: "linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.35) 100%)"
-      }} />
+
+      {/* bottom gradient for readability */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.35) 100%)",
+        }}
+      />
+
       <div className="hero-month-label">
         <div className="hero-year">{year}</div>
         <div className="hero-month">{monthName}</div>

@@ -1,8 +1,5 @@
-// ChevronDivider — smooth wave that blends hero photo into the card body
-// Pass isDark so the wave fill matches the card background exactly
-
-export default function ChevronDivider({ isDark }) {
-  const cardColor = isDark ? "#1c1c24" : "#fdf8f3";
+export default function ChevronDivider({ isDark, palette }) {
+  const cardColor = isDark ? palette.waveDark : palette.bg;
 
   return (
     <div style={{
@@ -19,7 +16,7 @@ export default function ChevronDivider({ isDark }) {
       >
         {/* Single smooth bezier wave — organic, no harsh edges */}
         <path
-          d="M0,60 Q215,0 430,42 Q645,82 860,22 L860,80 L0,80 Z"
+          d="M0,60 Q215,0 430,42 Q645,82 860,40 L860,80 L0,80 Z"
           fill={cardColor}
         />
       </svg>

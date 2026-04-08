@@ -1,8 +1,19 @@
-// ─── CalendarStyles ───────────────────────────────────────────────────────────
-// Generates the full <style> block for the calendar.
-// Receives palette + isDark as parameters so styles react to theme/month.
-
 export function buildCalendarStyles(palette, isDark) {
+  const accent = isDark ? palette.dark : palette.accent;
+
+  // Nav bar bg: dark = deep tint of accent, light = very soft tint from palette.bg
+  const navBg = isDark
+    ? `color-mix(in srgb, ${palette.dark} 12%, #16161e)`
+    : palette.bg;
+
+  // Card / body bg
+  const cardBg = isDark
+    ? `color-mix(in srgb, ${palette.dark} 6%, #1c1c24)`
+    : `color-mix(in srgb, ${palette.bg} 40%, #fdf8f3)`;
+
+  // Wave divider fill — must match navBg exactly
+  const waveFill = isDark ? "#16161e" : palette.bg;
+
   return `
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
 
@@ -15,7 +26,6 @@ export function buildCalendarStyles(palette, isDark) {
       transition: background 0.5s;
     }
 
-    /* ── Root layout ── */
     .cal-root {
       display: flex;
       align-items: center;
@@ -32,7 +42,6 @@ export function buildCalendarStyles(palette, isDark) {
       max-width: 860px;
     }
 
-    /* ── Spiral binding ── */
     .binding {
       display: flex;
       justify-content: center;
@@ -59,9 +68,8 @@ export function buildCalendarStyles(palette, isDark) {
       background: ${isDark ? "#444" : "#bbb"};
     }
 
-    /* ── Card shell ── */
     .calendar-card {
-      background: ${isDark ? "#1c1c24" : "#fdf8f3"};
+      background: ${cardBg};
       border-radius: 4px 4px 12px 12px;
       overflow: hidden;
       box-shadow: ${isDark
@@ -71,7 +79,6 @@ export function buildCalendarStyles(palette, isDark) {
       position: relative;
     }
 
-    /* ── Page flip animation ── */
     @keyframes slideOutLeft {
       from { opacity: 1; transform: rotateX(0deg) translateY(0); }
       to   { opacity: 0; transform: rotateX(-25deg) translateY(-20px); }
@@ -86,7 +93,6 @@ export function buildCalendarStyles(palette, isDark) {
     .page-content.slide-out-right { animation: slideOutLeft 0.38s ease-in forwards; }
     .page-content.slide-in         { animation: slideInFromBottom 0.38s ease-out forwards; }
 
-    /* ── Hero image ── */
     .hero-section { position: relative; height: 340px; overflow: hidden; }
     .hero-img {
       width: 100%; height: 100%; object-fit: cover;
@@ -115,7 +121,6 @@ export function buildCalendarStyles(palette, isDark) {
       text-shadow: 0 2px 24px rgba(0,0,0,0.4);
     }
 
-    /* ── Wave divider ── */
     .chevron-divider {
       display: block; width: 100%; overflow: hidden;
       line-height: 0;
@@ -125,25 +130,30 @@ export function buildCalendarStyles(palette, isDark) {
       pointer-events: none;
     }
     .chevron-divider svg { display: block; width: 100%; }
+    .chevron-divider svg path,
+    .chevron-divider svg rect,
+    .chevron-divider svg polygon,
+    .chevron-divider svg ellipse {
+      fill: ${waveFill} !important;
+    }
 
-    /* ── Month nav bar ── */
     .nav-bar {
       display: flex; align-items: center;
       justify-content: space-between;
       padding: 14px 28px 10px;
-      background: ${isDark ? "#16161e" : "#fff7ef"};
-      border-bottom: 1px solid ${palette.accent}22;
+      background: ${navBg};
+      border-bottom: 1px solid ${accent}22;
     }
     .nav-btn {
       width: 36px; height: 36px; border-radius: 50%;
-      border: 2px solid ${palette.accent};
-      background: transparent; color: ${palette.accent};
+      border: 2px solid ${accent};
+      background: transparent; color: ${accent};
       cursor: pointer; display: flex;
       align-items: center; justify-content: center;
       font-size: 16px; font-weight: bold;
       transition: all 0.2s;
     }
-    .nav-btn:hover { background: ${palette.accent}; color: #fff; transform: scale(1.1); }
+    .nav-btn:hover { background: ${accent}; color: #fff; transform: scale(1.1); }
     .nav-title {
       font-family: 'DM Sans', sans-serif;
       font-size: 13px; font-weight: 700;
@@ -151,27 +161,25 @@ export function buildCalendarStyles(palette, isDark) {
       letter-spacing: 3px; text-transform: uppercase;
     }
 
-    /* ── Body layout ── */
     .calendar-body {
       display: grid;
       grid-template-columns: 160px 1fr;
       gap: 0;
       padding: 16px 24px 24px;
-      background: ${isDark ? "#1c1c24" : "#fdf8f3"};
+      background: ${cardBg};
     }
 
-    /* ── Notes sidebar ── */
     .notes-sidebar {
       padding-right: 20px;
-      border-right: 2px solid ${palette.accent}33;
+      border-right: 2px solid ${accent}33;
     }
     .notes-label {
       font-size: 10px; font-weight: 700;
       letter-spacing: 2px; text-transform: uppercase;
-      color: ${palette.accent};
+      color: ${accent};
       margin-bottom: 12px;
       padding-bottom: 6px;
-      border-bottom: 2px solid ${palette.accent};
+      border-bottom: 2px solid ${accent};
     }
     .notes-textarea {
       width: 100%; background: transparent;
@@ -183,18 +191,17 @@ export function buildCalendarStyles(palette, isDark) {
       background-image: repeating-linear-gradient(
         to bottom,
         transparent, transparent 28px,
-        ${isDark ? "#2a2a38" : "#eeddd0"} 28px,
-        ${isDark ? "#2a2a38" : "#eeddd0"} 29px
+        ${isDark ? accent + "18" : accent + "22"} 28px,
+        ${isDark ? accent + "18" : accent + "22"} 29px
       );
       padding-top: 4px;
     }
     .notes-textarea::placeholder { color: ${isDark ? "#444" : "#c8b8aa"}; }
     .range-info {
       margin-top: 10px; font-size: 11px;
-      color: ${palette.accent}; font-weight: 500; line-height: 1.5;
+      color: ${accent}; font-weight: 500; line-height: 1.5;
     }
 
-    /* ── Calendar grid ── */
     .grid-section { padding-left: 20px; }
     .day-headers {
       display: grid; grid-template-columns: repeat(7, 1fr);
@@ -205,7 +212,7 @@ export function buildCalendarStyles(palette, isDark) {
       letter-spacing: 1.5px; text-transform: uppercase;
       color: ${isDark ? "#666" : "#aaa"}; padding: 4px 0;
     }
-    .day-header.weekend { color: ${palette.accent}; font-weight: 700; }
+    .day-header.weekend { color: ${accent}; font-weight: 700; }
 
     .days-grid {
       display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
@@ -224,50 +231,49 @@ export function buildCalendarStyles(palette, isDark) {
       cursor: default; pointer-events: none;
     }
     .day-cell:not(.other-month):hover {
-      background: ${palette.accent}22;
-      color: ${palette.accent}; transform: scale(1.12);
+      background: ${accent}22;
+      color: ${accent}; transform: scale(1.12);
     }
-    .day-cell.today { font-weight: 700; color: ${palette.accent}; }
+    .day-cell.today { font-weight: 700; color: ${accent}; }
     .day-cell.today::after {
       content: ''; position: absolute; bottom: 3px; left: 50%;
       transform: translateX(-50%);
       width: 4px; height: 4px; border-radius: 50%;
-      background: ${palette.accent};
+      background: ${accent};
     }
     .day-cell.range-start, .day-cell.range-end {
-      background: ${palette.accent} !important;
+      background: ${accent} !important;
       color: #fff !important; font-weight: 700;
       border-radius: 6px; transform: scale(1.1);
-      box-shadow: 0 4px 12px ${palette.accent}66;
+      box-shadow: 0 4px 12px ${accent}66;
     }
     .day-cell.range-mid {
-      background: ${palette.accent}25;
-      color: ${palette.accent}; border-radius: 0;
+      background: ${accent}25;
+      color: ${accent}; border-radius: 0;
     }
     .day-cell.has-note::before {
       content: ''; position: absolute; top: 3px; right: 3px;
       width: 5px; height: 5px; border-radius: 50%;
-      background: ${palette.accent};
+      background: ${accent};
     }
     .day-cell.holiday { font-style: italic; }
     .day-cell.sat, .day-cell.sun {
-      color: ${palette.accent};
+      color: ${accent};
       font-weight: 600;
     }
     .day-cell.sat.other-month, .day-cell.sun.other-month {
-      color: ${palette.accent}55;
+      color: ${accent}55;
     }
     .day-cell.range-start.sat, .day-cell.range-start.sun,
     .day-cell.range-end.sat,   .day-cell.range-end.sun { color: #fff; }
 
-    /* ── Theme toggle ── */
     .controls-bar {
       display: flex; justify-content: flex-end;
       padding: 10px 20px 4px; gap: 8px;
-      background: ${isDark ? "#1c1c24" : "#fdf8f3"};
+      background: ${cardBg};
     }
     .ctrl-btn {
-      background: ${isDark ? "#2a2a38" : "#f0ece8"};
+      background: ${isDark ? accent + "22" : accent + "15"};
       border: none; border-radius: 20px;
       padding: 6px 14px; font-size: 11px;
       font-weight: 600; letter-spacing: 1px;
@@ -275,10 +281,9 @@ export function buildCalendarStyles(palette, isDark) {
       color: ${isDark ? "#888" : "#888"};
       cursor: pointer; transition: all 0.2s;
     }
-    .ctrl-btn:hover { background: ${palette.accent}; color: #fff; }
-    .ctrl-btn.active { background: ${palette.accent}; color: #fff; }
+    .ctrl-btn:hover { background: ${accent}; color: #fff; }
+    .ctrl-btn.active { background: ${accent}; color: #fff; }
 
-    /* ── Note modal ── */
     .modal-overlay {
       position: fixed; inset: 0;
       background: rgba(0,0,0,0.5);
@@ -296,7 +301,7 @@ export function buildCalendarStyles(palette, isDark) {
       height: 60vh;
       box-shadow: 0 30px 60px rgba(0,0,0,0.4);
       animation: slideUp 0.25s ease;
-      border-top: 4px solid ${palette.accent};
+      border-top: 4px solid ${accent};
     }
     @keyframes slideUp {
       from { opacity: 0; transform: translateY(30px) scale(0.95); }
@@ -308,7 +313,7 @@ export function buildCalendarStyles(palette, isDark) {
       color: ${isDark ? "#eee" : "#222"}; margin-bottom: 6px;
     }
     .modal-subtitle {
-      font-size: 11px; color: ${palette.accent};
+      font-size: 11px; color: ${accent};
       letter-spacing: 2px; text-transform: uppercase;
       margin-bottom: 18px;
     }
@@ -323,7 +328,7 @@ export function buildCalendarStyles(palette, isDark) {
       resize: none; outline: none;
       transition: border-color 0.2s; min-height: 100px;
     }
-    .modal-input:focus { border-color: ${palette.accent}; }
+    .modal-input:focus { border-color: ${accent}; }
     .modal-actions {
       display: flex; gap: 10px;
       margin-top: 16px; justify-content: flex-end;
@@ -338,15 +343,15 @@ export function buildCalendarStyles(palette, isDark) {
     }
     .btn-cancel:hover { opacity: 0.8; }
     .btn-save {
-      background: ${palette.accent}; border: none;
+      background: ${accent}; border: none;
       border-radius: 8px; padding: 10px 24px;
       font-family: 'DM Sans', sans-serif;
       font-size: 13px; font-weight: 600; color: #fff;
       cursor: pointer;
-      box-shadow: 0 4px 12px ${palette.accent}55;
+      box-shadow: 0 4px 12px ${accent}55;
       transition: all 0.2s;
     }
-    .btn-save:hover { transform: translateY(-1px); box-shadow: 0 6px 16px ${palette.accent}66; }
+    .btn-save:hover { transform: translateY(-1px); box-shadow: 0 6px 16px ${accent}66; }
     .btn-delete {
       background: transparent; border: 1px solid #e55;
       border-radius: 8px; padding: 10px 16px;
@@ -356,7 +361,6 @@ export function buildCalendarStyles(palette, isDark) {
     }
     .btn-delete:hover { background: #fee; }
 
-    /* ── Holiday dot ── */
     .holiday-dot {
       position: absolute; bottom: 2px; left: 50%;
       transform: translateX(-50%);
@@ -375,21 +379,19 @@ export function buildCalendarStyles(palette, isDark) {
       white-space: nowrap;
     }
 
-    /* ── Selection hint ── */
     .selection-hint {
       text-align: center; font-size: 11px;
       color: ${isDark ? "#555" : "#c8b8aa"};
       letter-spacing: 1px; padding: 6px 0 0;
       text-transform: uppercase;
     }
-    .selection-hint span { color: ${palette.accent}; }
+    .selection-hint span { color: ${accent}; }
 
-    /* ── Responsive ── */
     @media (max-width: 600px) {
       .calendar-body { grid-template-columns: 1fr; padding: 16px; }
       .notes-sidebar {
         border-right: none;
-        border-bottom: 1px solid ${isDark ? "#2e2e3e" : "#eeddd0"};
+        border-bottom: 1px solid ${isDark ? accent + "33" : accent + "44"};
         padding-right: 0; padding-bottom: 16px; margin-bottom: 16px;
       }
       .grid-section { padding-left: 0; }
