@@ -9,7 +9,7 @@ Inspired by the physical wall calendar aesthetic — spiral binding, hero photog
 
 - **Wall calendar aesthetic** — spiral rings, full-bleed hero image, chevron divider, Playfair Display typography
 - **Month-aware theming** — each month has its own colour palette (ice blue for Jan, rose for Feb, etc.)
-- **Page-flip animation** — 3D rotateX transition when navigating months
+- **Page-flip animation** — transition when navigating months
 - **Day range selector** — click once to start, click again to finish; clear visual states for start, in-range, and end days
 - **Per-day notes** — tap the same date twice to open a modal and attach a note; a dot appears on days with notes
 - **Monthly notes** — ruled textarea in the sidebar for general month memos
