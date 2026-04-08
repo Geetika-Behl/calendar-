@@ -6,14 +6,14 @@ export function useCalendar() {
   const today = new Date();
   const [year, setYear] = useState(today.getFullYear());
   const [month, setMonth] = useState(today.getMonth());
-  const [animDir, setAnimDir] = useState(null);    // "next" | "prev" | null
+  const [animDir, setAnimDir] = useState(null);   
   const [animating, setAnimating] = useState(false);
 
   /**
    * Navigate one month forward ("next") or backward ("prev").
    * Triggers a 380 ms page-flip animation, then commits the new month.
    * @param {"next"|"prev"} dir
-   * @param {Function} onAfter - optional callback fired after month changes
+   * @param {Function} onAfter 
    */
   const changeMonth = (dir, onAfter) => {
     if (animating) return;

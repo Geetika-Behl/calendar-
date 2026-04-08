@@ -208,8 +208,6 @@ export function buildCalendarStyles(palette, isDark) {
     .days-grid {
       display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
     }
-
-    /* ── Day cell ── */
     .day-cell {
       aspect-ratio: 1;
       display: flex;
@@ -226,8 +224,6 @@ export function buildCalendarStyles(palette, isDark) {
       user-select: none;
       padding: 4px 2px;
     }
-
-    /* ── Day content stacking ── */
     .day-content {
       display: flex;
       flex-direction: column;

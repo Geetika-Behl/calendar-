@@ -24,31 +24,55 @@ Inspired by the physical wall calendar aesthetic — spiral binding, hero photog
 
 ```
 src/
-├── constants/calendar.js       Static lookup tables (months, images, palettes, holidays)
-├── utils/dateUtils.js          Pure date math — no React, fully unit-testable
-├── styles/calendarStyles.js    CSS string builder, parameterised by palette + isDark
+│
+├── constants/
+│   └── calendar.js          Static lookup tables (months, images, palettes, holidays)
+│
+├── utils/
+│   └── dateUtils.js         Pure date math — no React, fully unit-testable
+│
+├── styles/
+│   └── calendarStyles.js    CSS string builder, parameterised by palette + isDark
 │
 ├── hooks/
-│   ├── useCalendar.js          Month/year navigation + page-flip animation state
-│   ├── useDateRange.js         Start/end range selection state + click handler
-│   ├── useNotes.js             Notes CRUD + localStorage persistence
-│   └── useTheme.js             Light/dark toggle
+│   ├── useCalendar.js       Month/year navigation + page-flip animation state
+│   ├── useDateRange.js      Start/end range selection state + click handler
+│   ├── useNotes.js          Notes CRUD + localStorage persistence
+│   └── useTheme.js          Light/dark toggle
 │
-└── components/
-    ├── WallCalendar.jsx        Composer — wires hooks → components, owns zero logic
-    ├── CalendarBinding/        Spiral ring row
-    ├── ThemeToggle/            ☀ / 🌙 buttons
-    ├── HeroPanel/              Hero image + month/year label
-    ├── ChevronDivider/         SVG chevron between image and grid
-    ├── MonthNav/               ‹ Month Year › navigation bar
-    ├── NotesPanel/             Monthly textarea + range summary
-    ├── CalendarGrid/           7-column day grid with all cell states
-    └── NoteModal/              Per-day note modal dialog
+├── components/
+│   ├── calendar/
+│   │   ├── WallCalendar.jsx      Composer — wires hooks → components, owns zero logic
+│   │   ├── CalendarGrid.jsx      7-column day grid with all cell states
+│   │   ├── CalendarBinding.jsx   Spiral ring row
+│   │   ├── ChevronDivider.jsx    SVG chevron between image and grid
+│   │   ├── HeroPanel.jsx         Hero image + month/year label
+│   │   └── MonthNav.jsx          ‹ Month Year › navigation bar
+│   │
+│   ├── notes/
+│   │   ├── NoteModal.jsx         Per-day note modal dialog
+│   │   └── NotesPanel.jsx        Monthly textarea + range summary
+│   │
+│   └── ui/
+│       ├── HeroPanel.jsx         Reusable hero image wrapper
+│       └── ThemeToggle.jsx       ☀ / 🌙 buttons
+│
+└── main.jsx                 App entry point
 ```
+
+### Design principles
 
 Each hook owns exactly **one slice of state**.  
 Each component renders exactly **one visual region**.  
 `WallCalendar.jsx` only wires them together — it has zero `useState` calls of its own.
+
+Components are grouped into three sub-folders by domain:
+
+| Folder | Purpose |
+|---|---|
+| `components/calendar/` | Core calendar UI — grid, navigation, hero, binding |
+| `components/notes/` | Note entry — modal dialog and sidebar panel |
+| `components/ui/` | Generic, reusable UI primitives — theme toggle, hero wrapper |
 
 ---
 
@@ -90,4 +114,6 @@ npm run preview
 - **Add holidays:** edit `HOLIDAYS` in `src/constants/calendar.js`
 - **Add a month image:** replace the URL at the matching index in `MONTH_IMAGES`
 - **Change a palette:** edit the matching entry in `MONTH_PALETTES`
-- **Add a new feature:** add a hook in `src/hooks/`, a component in `src/components/`, wire in `WallCalendar.jsx`
+- **Add a calendar feature:** add a hook in `src/hooks/`, a component in `src/components/calendar/`, wire in `WallCalendar.jsx`
+- **Add a UI primitive:** add a component in `src/components/ui/` for anything reusable across regions
+- **Add a notes feature:** add a component in `src/components/notes/` and connect via `useNotes.js`
