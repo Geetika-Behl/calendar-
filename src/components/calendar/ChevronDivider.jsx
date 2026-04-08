@@ -16,7 +16,7 @@ export default function ChevronDivider({ isDark, palette }) {
       >
         {/* Single smooth bezier wave — organic, no harsh edges */}
         <path
-          d="M0,60 Q215,0 430,42 Q645,80 860,40 L860,87 L0,80 Z"
+          d="M0,60 Q215,0 430,42 Q645,80 860,40 L860,95 L0,80 Z"
           fill={cardColor}
         />
       </svg>
