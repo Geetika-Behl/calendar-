@@ -1,8 +1,3 @@
-// ─── useDateRange ─────────────────────────────────────────────────────────────
-// Owns: rangeStart, rangeEnd, "are we mid-selection?" flag.
-// Does NOT own: notes, calendar month, theme.
-// Returns click handler and state for CalendarGrid to derive cell classes.
-
 import { useState } from "react";
 import { makeDay, isSameDay } from "../utils/dateUtils";
 
@@ -39,7 +34,6 @@ export function useDateRange({ year, month, onSingleDayTap }) {
     }
   };
 
-  /** Clear the selection (call after month navigation). */
   const clearRange = () => {
     setRangeStart(null);
     setRangeEnd(null);

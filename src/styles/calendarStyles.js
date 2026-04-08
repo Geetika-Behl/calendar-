@@ -1,8 +1,6 @@
 // ─── CalendarStyles ───────────────────────────────────────────────────────────
 // Generates the full <style> block for the calendar.
 // Receives palette + isDark as parameters so styles react to theme/month.
-// Keeping styles here (not inlined inside components) means each component
-// file stays focused on structure, not on CSS strings.
 
 export function buildCalendarStyles(palette, isDark) {
   return `
@@ -63,7 +61,7 @@ export function buildCalendarStyles(palette, isDark) {
 
     /* ── Card shell ── */
     .calendar-card {
-      background: ${isDark ? "#1c1c24" : "#ffffff"};
+      background: ${isDark ? "#1c1c24" : "#fdf8f3"};
       border-radius: 4px 4px 12px 12px;
       overflow: hidden;
       box-shadow: ${isDark
@@ -89,7 +87,7 @@ export function buildCalendarStyles(palette, isDark) {
     .page-content.slide-in         { animation: slideInFromBottom 0.38s ease-out forwards; }
 
     /* ── Hero image ── */
-    .hero-section { position: relative; height: 260px; overflow: hidden; }
+    .hero-section { position: relative; height: 340px; overflow: hidden; }
     .hero-img {
       width: 100%; height: 100%; object-fit: cover;
       transition: opacity 0.6s ease, transform 8s ease;
@@ -98,10 +96,10 @@ export function buildCalendarStyles(palette, isDark) {
     .hero-img.loaded { opacity: 1; transform: scale(1); }
     .hero-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(135deg, transparent 40%, ${palette.accent}dd 100%);
+      background: linear-gradient(to bottom, transparent 55%, rgba(0,0,0,0.38) 100%);
     }
     .hero-month-label {
-      position: absolute; bottom: 0; right: 0;
+      position: absolute; bottom: 52px; right: 0;
       padding: 20px 28px; text-align: right;
     }
     .hero-year {
@@ -112,15 +110,19 @@ export function buildCalendarStyles(palette, isDark) {
     }
     .hero-month {
       font-family: 'Playfair Display', serif;
-      font-size: 42px; font-weight: 900;
+      font-size: 52px; font-weight: 900;
       color: #fff; line-height: 1;
-      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+      text-shadow: 0 2px 24px rgba(0,0,0,0.4);
     }
 
-    /* ── Chevron divider ── */
+    /* ── Wave divider ── */
     .chevron-divider {
       display: block; width: 100%; overflow: hidden;
-      line-height: 0; margin-top: -2px;
+      line-height: 0;
+      position: relative;
+      margin-top: -60px;
+      z-index: 3;
+      pointer-events: none;
     }
     .chevron-divider svg { display: block; width: 100%; }
 
@@ -128,7 +130,9 @@ export function buildCalendarStyles(palette, isDark) {
     .nav-bar {
       display: flex; align-items: center;
       justify-content: space-between;
-      padding: 12px 28px 0;
+      padding: 14px 28px 10px;
+      background: ${isDark ? "#16161e" : "#fff7ef"};
+      border-bottom: 1px solid ${palette.accent}22;
     }
     .nav-btn {
       width: 36px; height: 36px; border-radius: 50%;
@@ -142,27 +146,32 @@ export function buildCalendarStyles(palette, isDark) {
     .nav-btn:hover { background: ${palette.accent}; color: #fff; transform: scale(1.1); }
     .nav-title {
       font-family: 'DM Sans', sans-serif;
-      font-size: 13px; font-weight: 600;
-      color: ${isDark ? "#aaa" : "#888"};
-      letter-spacing: 2px; text-transform: uppercase;
+      font-size: 13px; font-weight: 700;
+      color: ${isDark ? "#bbb" : "#555"};
+      letter-spacing: 3px; text-transform: uppercase;
     }
 
     /* ── Body layout ── */
     .calendar-body {
       display: grid;
       grid-template-columns: 160px 1fr;
-      gap: 0; padding: 16px 24px 24px;
+      gap: 0;
+      padding: 16px 24px 24px;
+      background: ${isDark ? "#1c1c24" : "#fdf8f3"};
     }
 
     /* ── Notes sidebar ── */
     .notes-sidebar {
       padding-right: 20px;
-      border-right: 1px solid ${isDark ? "#2e2e3e" : "#eee"};
+      border-right: 2px solid ${palette.accent}33;
     }
     .notes-label {
-      font-size: 10px; font-weight: 600;
+      font-size: 10px; font-weight: 700;
       letter-spacing: 2px; text-transform: uppercase;
-      color: ${palette.accent}; margin-bottom: 12px;
+      color: ${palette.accent};
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid ${palette.accent};
     }
     .notes-textarea {
       width: 100%; background: transparent;
@@ -174,12 +183,12 @@ export function buildCalendarStyles(palette, isDark) {
       background-image: repeating-linear-gradient(
         to bottom,
         transparent, transparent 28px,
-        ${isDark ? "#2a2a38" : "#eee"} 28px,
-        ${isDark ? "#2a2a38" : "#eee"} 29px
+        ${isDark ? "#2a2a38" : "#eeddd0"} 28px,
+        ${isDark ? "#2a2a38" : "#eeddd0"} 29px
       );
       padding-top: 4px;
     }
-    .notes-textarea::placeholder { color: ${isDark ? "#444" : "#ccc"}; }
+    .notes-textarea::placeholder { color: ${isDark ? "#444" : "#c8b8aa"}; }
     .range-info {
       margin-top: 10px; font-size: 11px;
       color: ${palette.accent}; font-weight: 500; line-height: 1.5;
@@ -196,7 +205,7 @@ export function buildCalendarStyles(palette, isDark) {
       letter-spacing: 1.5px; text-transform: uppercase;
       color: ${isDark ? "#666" : "#aaa"}; padding: 4px 0;
     }
-    .day-header.weekend { color: ${palette.accent}; }
+    .day-header.weekend { color: ${palette.accent}; font-weight: 700; }
 
     .days-grid {
       display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
@@ -205,11 +214,13 @@ export function buildCalendarStyles(palette, isDark) {
       aspect-ratio: 1; display: flex;
       align-items: center; justify-content: center;
       border-radius: 6px; cursor: pointer; position: relative;
-      transition: all 0.15s; font-size: 15px; font-weight: 400;
-      color: ${isDark ? "#ddd" : "#333"}; user-select: none;
+      transition: all 0.15s;
+      font-size: 17px; font-weight: 500;
+      color: ${isDark ? "#ddd" : "#2a2a2a"};
+      user-select: none;
     }
     .day-cell.other-month {
-      color: ${isDark ? "#333" : "#ccc"};
+      color: ${isDark ? "#333" : "#d0c4ba"};
       cursor: default; pointer-events: none;
     }
     .day-cell:not(.other-month):hover {
@@ -240,7 +251,11 @@ export function buildCalendarStyles(palette, isDark) {
     }
     .day-cell.holiday { font-style: italic; }
     .day-cell.sat, .day-cell.sun {
-      color: ${isDark ? "#888" : "#bbb"}; font-weight: 800;
+      color: ${palette.accent};
+      font-weight: 600;
+    }
+    .day-cell.sat.other-month, .day-cell.sun.other-month {
+      color: ${palette.accent}55;
     }
     .day-cell.range-start.sat, .day-cell.range-start.sun,
     .day-cell.range-end.sat,   .day-cell.range-end.sun { color: #fff; }
@@ -249,14 +264,15 @@ export function buildCalendarStyles(palette, isDark) {
     .controls-bar {
       display: flex; justify-content: flex-end;
       padding: 10px 20px 4px; gap: 8px;
+      background: ${isDark ? "#1c1c24" : "#fdf8f3"};
     }
     .ctrl-btn {
-      background: ${isDark ? "#2a2a38" : "#f0f0f5"};
+      background: ${isDark ? "#2a2a38" : "#f0ece8"};
       border: none; border-radius: 20px;
       padding: 6px 14px; font-size: 11px;
       font-weight: 600; letter-spacing: 1px;
       text-transform: uppercase;
-      color: ${isDark ? "#888" : "#666"};
+      color: ${isDark ? "#888" : "#888"};
       cursor: pointer; transition: all 0.2s;
     }
     .ctrl-btn:hover { background: ${palette.accent}; color: #fff; }
@@ -347,24 +363,22 @@ export function buildCalendarStyles(palette, isDark) {
       width: 3px; height: 3px; border-radius: 50%;
       background: #e55;
     }
-
     .holiday-label {
-  font-size: 7px;
-  margin-top: 2px;
-  color: #e55;
-  text-align: center;
-  line-height: 1.1;
-
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+      font-size: 7px;
+      margin-top: 2px;
+      color: #e55;
+      text-align: center;
+      line-height: 1.1;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
     /* ── Selection hint ── */
     .selection-hint {
       text-align: center; font-size: 11px;
-      color: ${isDark ? "#555" : "#ccc"};
+      color: ${isDark ? "#555" : "#c8b8aa"};
       letter-spacing: 1px; padding: 6px 0 0;
       text-transform: uppercase;
     }
@@ -375,12 +389,12 @@ export function buildCalendarStyles(palette, isDark) {
       .calendar-body { grid-template-columns: 1fr; padding: 16px; }
       .notes-sidebar {
         border-right: none;
-        border-bottom: 1px solid ${isDark ? "#2e2e3e" : "#eee"};
+        border-bottom: 1px solid ${isDark ? "#2e2e3e" : "#eeddd0"};
         padding-right: 0; padding-bottom: 16px; margin-bottom: 16px;
       }
       .grid-section { padding-left: 0; }
-      .hero-section { height: 200px; }
-      .hero-month   { font-size: 32px; }
+      .hero-section { height: 240px; }
+      .hero-month   { font-size: 36px; }
       .day-cell     { font-size: 12px; }
     }
   `;

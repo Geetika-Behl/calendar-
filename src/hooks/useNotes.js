@@ -1,6 +1,4 @@
-// ─── useNotes ─────────────────────────────────────────────────────────────────
 // Owns: per-day notes map, per-month notes map, note modal open/close state.
-// Does NOT own: range selection, calendar navigation, theme.
 // Persists to localStorage so notes survive page refresh.
 
 import { useState, useRef, useEffect } from "react";
@@ -23,19 +21,17 @@ function saveToStorage(key, value) {
 }
 
 export function useNotes() {
-  const [notes,      setNotes]      = useState(() => loadFromStorage(LS_KEY_DAY,   {}));
+  const [notes, setNotes] = useState(() => loadFromStorage(LS_KEY_DAY,   {}));
   const [monthNotes, setMonthNotes] = useState(() => loadFromStorage(LS_KEY_MONTH, {}));
-  const [noteModal,  setNoteModal]  = useState(null);  // { y, m, d } | null
-  const [noteInput,  setNoteInput]  = useState("");
+  const [noteModal, setNoteModal] = useState(null);  
+  const [noteInput, setNoteInput] = useState("");
   const noteRef = useRef(null);
 
-  // Persist day-notes to localStorage whenever they change
   useEffect(() => { saveToStorage(LS_KEY_DAY, notes); }, [notes]);
 
   // Persist month-notes to localStorage whenever they change
   useEffect(() => { saveToStorage(LS_KEY_MONTH, monthNotes); }, [monthNotes]);
 
-  /** Open the note modal for a specific day. */
   const openNoteModal = (y, m, d) => {
     const k = dateKey(y, m, d);
     setNoteModal({ y, m, d });
@@ -65,7 +61,6 @@ export function useNotes() {
     setMonthNotes(prev => ({ ...prev, [k]: text }));
   };
 
-  /** Get the monthly note string for a given year+month (empty string if none). */
   const getMonthNote = (y, m) => monthNotes[monthKey(y, m)] || "";
 
   /** Returns true if a given day has a saved note. */
@@ -74,7 +69,7 @@ export function useNotes() {
   const closeNoteModal = () => setNoteModal(null);
 
   return {
-    notes,  // raw map — needed by NoteModal to show/hide the Delete button
+    notes,  
     noteModal, noteInput, setNoteInput, noteRef,
     openNoteModal, closeNoteModal, saveNote, deleteNote,
     updateMonthNote, getMonthNote, hasNote,

@@ -1,7 +1,4 @@
-// ─── NoteModal ────────────────────────────────────────────────────────────────
 // Renders the modal dialog for adding/editing/deleting a per-day note.
-// Owns no state — receives open/close/save/delete callbacks from parent.
-// Returns null when noteModal is null (closed).
 
 import { MONTHS } from "../../utils/calendar";
 import { dateKey } from "../../utils/dateUtils";

@@ -23,7 +23,7 @@ export function dateKey(y, m, d) {
 
 /** Consistent string key for a year+month (used for monthly notes). */
 export function monthKey(y, m) {
-  return `${y}-${m}`;
+  return `${y}-${m+1}`;
 }
 
 /** Creates a day object with a timestamp for fast comparisons. */

@@ -1,6 +1,4 @@
-// ─── ThemeToggle ──────────────────────────────────────────────────────────────
 // Renders two buttons to switch between light and dark theme.
-// Receives the current theme and setter callbacks — owns no state itself.
 
 export default function ThemeToggle({ theme, onLight, onDark }) {
   return (

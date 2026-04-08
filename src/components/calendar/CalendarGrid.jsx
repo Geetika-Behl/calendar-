@@ -29,21 +29,19 @@ export default function CalendarGrid({
 
     return [
       "day-cell",
-      isStart  ? "range-start" : "",
-      isEnd    ? "range-end"   : "",
-      isMid    ? "range-mid"   : "",
-      isToday  ? "today"       : "",
-      noteFlag ? "has-note"    : "",
-      holiday  ? "holiday"     : "",
-      isSat    ? "sat"         : "",
-      isSun    ? "sun"         : "",
+      isStart ? "range-start" : "",
+      isEnd ? "range-end" : "",
+      isMid ? "range-mid" : "",
+      isToday ? "today" : "",
+      noteFlag ? "has-note" : "",
+      holiday ? "holiday" : "",
+      isSat ? "sat" : "",
+      isSun ? "sun" : "",
     ].filter(Boolean).join(" ");
   };
 
   return (
     <div className="grid-section">
-
-      {/* Weekday headers */}
       <div className="day-headers">
         {DAYS_SHORT.map((d, i) => (
           <div key={d} className={`day-header ${i >= 5 ? "weekend" : ""}`}>
@@ -52,7 +50,6 @@ export default function CalendarGrid({
         ))}
       </div>
 
-      {/* ✅ FIXED GRID */}
       <div className="days-grid">
         {cells.map((cell, idx) => {
           if (cell.type !== "cur") {
@@ -86,7 +83,6 @@ export default function CalendarGrid({
         })}
       </div>
 
-      {/* Selection hint */}
       <div className="selection-hint">
         {selecting
           ? <>Click to set <span>end date</span> — or same date to add note</>

@@ -1,21 +1,26 @@
-// Renders the decorative SVG chevron that separates the hero image
-// from the calendar grid. Receives colors as props — no state, no logic.
+// ChevronDivider — smooth wave that blends hero photo into the card body
+// Pass isDark so the wave fill matches the card background exactly
 
-export default function ChevronDivider({ cardColor, accentColor }) {
+export default function ChevronDivider({ isDark }) {
+  const cardColor = isDark ? "#1c1c24" : "#fdf8f3";
+
   return (
-    <div className="chevron-divider">
-      <svg viewBox="0 0 860 40" preserveAspectRatio="none" height="40">
-        <polygon
-          points="0,0 430,38 860,0 860,40 0,40"
+    <div style={{
+      position: "relative",
+      marginTop: "-60px",
+      zIndex: 3,
+      lineHeight: 0,
+      pointerEvents: "none",
+    }}>
+      <svg
+        viewBox="0 0 860 80"
+        preserveAspectRatio="none"
+        style={{ display: "block", width: "100%", height: "80px" }}
+      >
+        {/* Single smooth bezier wave — organic, no harsh edges */}
+        <path
+          d="M0,60 Q215,0 430,42 Q645,82 860,22 L860,80 L0,80 Z"
           fill={cardColor}
-        />
-        <polygon
-          points="0,0 215,38 430,0"
-          fill={accentColor}
-        />
-        <polygon
-          points="430,38 645,0 860,38 860,0 430,0"
-          fill={accentColor + "99"}
         />
       </svg>
     </div>

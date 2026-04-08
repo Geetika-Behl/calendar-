@@ -1,14 +1,11 @@
-// ─── useCalendar ──────────────────────────────────────────────────────────────
 // Owns: current year, current month, page-flip animation state.
-// Does NOT own: range selection, notes, theme.
-// Returns helpers to navigate months and the animation CSS class name.
 
 import { useState } from "react";
 
 export function useCalendar() {
   const today = new Date();
-  const [year, setYear]       = useState(today.getFullYear());
-  const [month, setMonth]     = useState(today.getMonth());
+  const [year, setYear] = useState(today.getFullYear());
+  const [month, setMonth] = useState(today.getMonth());
   const [animDir, setAnimDir] = useState(null);    // "next" | "prev" | null
   const [animating, setAnimating] = useState(false);
 
@@ -40,8 +37,6 @@ export function useCalendar() {
       onAfter?.();
     }, 380);
   };
-
-  // CSS class for the page-content div driving the flip animation
   const slideClass = animating
     ? (animDir === "next" ? "slide-out-left" : "slide-out-right")
     : animDir === null ? "slide-in" : "";
