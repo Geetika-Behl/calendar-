@@ -1,8 +1,3 @@
-// ─── CalendarGrid ─────────────────────────────────────────────────────────────
-// Renders the 7-column day-header row and the 42-cell day grid.
-// Derives each cell's CSS classes from props — owns no state.
-// Cell click is delegated up via onDayClick.
-
 import { DAYS_SHORT, HOLIDAYS } from "../../utils/calendar";
 import { makeDay, isSameDay, isBetween } from "../../utils/dateUtils";
 
@@ -14,16 +9,23 @@ export default function CalendarGrid({
   hasNote,
 }) {
   const getDayClasses = (cell, idx) => {
-    const day      = makeDay(year, month, cell.d);
-    const isStart  = isSameDay(day, rangeStart);
-    const isEnd    = isSameDay(day, rangeEnd);
-    const isMid    = isBetween(day, rangeStart, rangeEnd);
-    const isToday  = year === today.getFullYear() && month === today.getMonth() && cell.d === today.getDate();
+    const day = makeDay(year, month, cell.d);
+
+    const isStart = isSameDay(day, rangeStart);
+    const isEnd   = isSameDay(day, rangeEnd);
+    const isMid   = isBetween(day, rangeStart, rangeEnd);
+
+    const isToday =
+      year === today.getFullYear() &&
+      month === today.getMonth() &&
+      cell.d === today.getDate();
+
     const noteFlag = hasNote(year, month, cell.d);
     const holiday  = HOLIDAYS[`${month + 1}-${cell.d}`];
-    const colIdx   = idx % 7;
-    const isSat    = colIdx === 5;
-    const isSun    = colIdx === 6;
+
+    const colIdx = idx % 7;
+    const isSat = colIdx === 5;
+    const isSun = colIdx === 6;
 
     return [
       "day-cell",
@@ -40,6 +42,7 @@ export default function CalendarGrid({
 
   return (
     <div className="grid-section">
+
       {/* Weekday headers */}
       <div className="day-headers">
         {DAYS_SHORT.map((d, i) => (
@@ -49,7 +52,7 @@ export default function CalendarGrid({
         ))}
       </div>
 
-      {/* Day cells */}
+      {/* ✅ FIXED GRID */}
       <div className="days-grid">
         {cells.map((cell, idx) => {
           if (cell.type !== "cur") {
@@ -69,8 +72,15 @@ export default function CalendarGrid({
               onClick={() => onDayClick(cell.d)}
               title={holiday || ""}
             >
-              {cell.d}
-              {holiday && <span className="holiday-dot" />}
+              <div className="day-content">
+                <span className="day-number">{cell.d}</span>
+
+                {holiday && (
+                  <span className="holiday-label">
+                    {holiday}
+                  </span>
+                )}
+              </div>
             </div>
           );
         })}

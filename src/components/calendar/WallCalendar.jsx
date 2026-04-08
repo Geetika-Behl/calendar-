@@ -1,31 +1,22 @@
-// ─── WallCalendar (Root Composer) ─────────────────────────────────────────────
-
-import { MONTHS, MONTH_IMAGES, MONTH_PALETTES } from "../../utils/calendar"; // fix only if file exists
+import { MONTHS, MONTH_IMAGES, MONTH_PALETTES } from "../../utils/calendar";
 import { buildCalendarCells } from "../../utils/dateUtils";
-import { buildCalendarStyles } from "../../styles/calendarStyles"; // ✅ FIXED
-
-import { useCalendar } from "../../hooks/useCalendar";   // ✅ FIXED
-import { useDateRange } from "../../hooks/useDateRange"; // ✅ FIXED
-import { useNotes } from "../../hooks/useNotes";         // ✅ FIXED
-import { useTheme } from "../../hooks/useTheme";         // ✅ FIXED
-
-// ✅ FIXED COMPONENT IMPORTS (same folder)
+import { buildCalendarStyles } from "../../styles/calendarStyles"; 
+import { useCalendar } from "../../hooks/useCalendar";   
+import { useDateRange } from "../../hooks/useDateRange"; 
+import { useNotes } from "../../hooks/useNotes";        
+import { useTheme } from "../../hooks/useTheme";        
 import CalendarBinding from "./CalendarBinding";
 import ChevronDivider from "./ChevronDivider";
 import MonthNav from "./MonthNav";
 import CalendarGrid from "./CalendarGrid";
-
-// ✅ DIFFERENT FOLDERS
 import ThemeToggle from "../ui/ThemeToggle";
 import HeroPanel from "../ui/HeroPanel";
-
 import NotesPanel from "../notes/NotesPanel";
 import NoteModal from "../notes/NoteModal";
 
 export default function WallCalendar() {
-  // ── Hooks ──────────────────────────────────────────────────────────────────
   const { year, month, today, changeMonth, slideClass } = useCalendar();
-  const { theme, isDark, setLight, setDark }            = useTheme();
+  const { theme, isDark, setLight, setDark } = useTheme();
 
   const {
     notes,
@@ -36,13 +27,9 @@ export default function WallCalendar() {
 
   const { rangeStart, rangeEnd, selecting, handleDayClick, clearRange } =
     useDateRange({ year, month, onSingleDayTap: openNoteModal });
-
-  // ── Derived values (pure lookups) ──────────────────────────────────────────
   const palette   = MONTH_PALETTES[month];
   const cells     = buildCalendarCells(year, month);
   const cardColor = isDark ? "#1c1c24" : "#fff";
-
-  // ── Render ─────────────────────────────────────────────────────────────────
   return (
     <>
       <style>{buildCalendarStyles(palette, isDark)}</style>
@@ -50,7 +37,7 @@ export default function WallCalendar() {
       <div className="cal-root">
         <div className="calendar-wrapper">
 
-          <CalendarBinding count={12} />
+          <CalendarBinding count={15} />
 
           <div className="calendar-card">
             <ThemeToggle theme={theme} onLight={setLight} onDark={setDark} />

@@ -10,22 +10,22 @@ export const MONTHS = [
 export const DAYS_SHORT = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 
 export const MONTH_IMAGES = [
-  "https://images.unsplash.com/photo-1516912481808-3406841bd33c?w=800&q=80", // Jan - snow
+  "https://plus.unsplash.com/premium_photo-1667579187855-fed841be2ec9?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Jan - snow
   "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=800&q=80", // Feb - foggy forest
   "https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?w=800&q=80", // Mar - spring
-  "https://images.unsplash.com/photo-1490750967868-88df5691cc34?w=800&q=80", // Apr - blossoms
-  "https://images.unsplash.com/photo-1441260038675-7329ab4cc264?w=800&q=80", // May - green
+  "https://images.unsplash.com/photo-1490750967868-88aa4486c946?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Apr - blossoms
+  "https://plus.unsplash.com/premium_photo-1673799490772-2ea0b711e43b?q=80&w=722&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // May - green
   "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80", // Jun - beach
-  "https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=800&q=80", // Jul - summer
-  "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&q=80", // Aug - golden
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80", // Sep - autumn
-  "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=800&q=80", // Oct - fall
-  "https://images.unsplash.com/photo-1477601263568-180e2c6d046e?w=800&q=80", // Nov - misty
+  "https://images.unsplash.com/photo-1620018010207-49e7c4530d71?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Jul - summer
+  "https://plus.unsplash.com/premium_photo-1748168616341-60ab7654d9f1?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Aug - golden
+  "https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Sep - autumn
+  "https://plus.unsplash.com/premium_photo-1668967516060-624b8a7021f4?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Oct - fall
+  "https://images.unsplash.com/photo-1635449520684-30962009085f?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Nov - misty
   "https://images.unsplash.com/photo-1418985991508-e47386d96a71?w=800&q=80", // Dec - snow
 ];
 
 export const MONTH_PALETTES = [
-  { accent: "#1E9FD8", bg: "#E8F6FD", dark: "#0D5F85" }, // Jan - ice blue
+  { accent: "#1e9fd8", bg: "#a0c5d7", dark: "#5cc7f9" }, // Jan - ice blue
   { accent: "#E8607A", bg: "#FDE8ED", dark: "#8F2D40" }, // Feb - rose
   { accent: "#4CAF6E", bg: "#E8F5EC", dark: "#2A6B3F" }, // Mar - spring green
   { accent: "#E88B3A", bg: "#FDF1E8", dark: "#8F4A1A" }, // Apr - peach
@@ -43,10 +43,7 @@ export const MONTH_PALETTES = [
 export const HOLIDAYS = {
   "1-1":   "New Year's Day",
   "1-26":  "Republic Day",
-  "3-8":   "Holi",
   "8-15":  "Independence Day",
   "10-2":  "Gandhi Jayanti",
-  "10-20": "Dussehra",
-  "11-1":  "Diwali",
   "12-25": "Christmas",
 };

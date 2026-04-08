@@ -205,7 +205,7 @@ export function buildCalendarStyles(palette, isDark) {
       aspect-ratio: 1; display: flex;
       align-items: center; justify-content: center;
       border-radius: 6px; cursor: pointer; position: relative;
-      transition: all 0.15s; font-size: 13px; font-weight: 400;
+      transition: all 0.15s; font-size: 15px; font-weight: 400;
       color: ${isDark ? "#ddd" : "#333"}; user-select: none;
     }
     .day-cell.other-month {
@@ -240,7 +240,7 @@ export function buildCalendarStyles(palette, isDark) {
     }
     .day-cell.holiday { font-style: italic; }
     .day-cell.sat, .day-cell.sun {
-      color: ${isDark ? "#888" : "#bbb"}; font-weight: 500;
+      color: ${isDark ? "#888" : "#bbb"}; font-weight: 800;
     }
     .day-cell.range-start.sat, .day-cell.range-start.sun,
     .day-cell.range-end.sat,   .day-cell.range-end.sun { color: #fff; }
@@ -276,7 +276,8 @@ export function buildCalendarStyles(palette, isDark) {
     .modal-card {
       background: ${isDark ? "#1e1e2c" : "#fff"};
       border-radius: 16px; padding: 28px;
-      width: 340px; max-width: 90vw;
+      width: 70vw; max-width: 90vw;
+      height: 60vh;
       box-shadow: 0 30px 60px rgba(0,0,0,0.4);
       animation: slideUp 0.25s ease;
       border-top: 4px solid ${palette.accent};
@@ -287,7 +288,7 @@ export function buildCalendarStyles(palette, isDark) {
     }
     .modal-title {
       font-family: 'Playfair Display', serif;
-      font-size: 20px; font-weight: 700;
+      font-size: 60px; font-weight: 700;
       color: ${isDark ? "#eee" : "#222"}; margin-bottom: 6px;
     }
     .modal-subtitle {
@@ -297,11 +298,12 @@ export function buildCalendarStyles(palette, isDark) {
     }
     .modal-input {
       width: 100%;
+      height: 70%;
       background: ${isDark ? "#2a2a38" : "#f8f8fc"};
       border: 2px solid ${isDark ? "#33334a" : "#eee"};
       border-radius: 10px; padding: 14px;
       font-family: 'DM Sans', sans-serif;
-      font-size: 14px; color: ${isDark ? "#ddd" : "#333"};
+      font-size: 20px; color: ${isDark ? "#ddd" : "#333"};
       resize: none; outline: none;
       transition: border-color 0.2s; min-height: 100px;
     }
@@ -345,6 +347,19 @@ export function buildCalendarStyles(palette, isDark) {
       width: 3px; height: 3px; border-radius: 50%;
       background: #e55;
     }
+
+    .holiday-label {
+  font-size: 7px;
+  margin-top: 2px;
+  color: #e55;
+  text-align: center;
+  line-height: 1.1;
+
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
     /* ── Selection hint ── */
     .selection-hint {

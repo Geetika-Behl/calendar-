@@ -7,7 +7,7 @@ import { useState } from "react";
 import { makeDay, isSameDay } from "../utils/dateUtils";
 
 export function useDateRange({ year, month, onSingleDayTap }) {
-  const [rangeStart, setRangeStart] = useState(null);
+  const [rangeStart, setRangeStart] = useState([]);
   const [rangeEnd,   setRangeEnd]   = useState(null);
   const [selecting,  setSelecting]  = useState(false);
 
@@ -26,12 +26,16 @@ export function useDateRange({ year, month, onSingleDayTap }) {
       setSelecting(true);
     } else {
       if (isSameDay(day, rangeStart)) {
-        onSingleDayTap?.(year, month, d);
-        setSelecting(false);
+        onSingleDayTap?.({type: "single", year, month, day: d});
       } else {
+        const range = {
+          start: rangeStart,
+          end: day,
+        };
+        onSingleDayTap?.({type: "range", year, month, ...range});
         setRangeEnd(day);
-        setSelecting(false);
       }
+      setSelecting(false);
     }
   };
 
@@ -42,5 +46,5 @@ export function useDateRange({ year, month, onSingleDayTap }) {
     setSelecting(false);
   };
 
-  return { rangeStart, rangeEnd, selecting, handleDayClick, clearRange };
+  return { rangeStart, rangeEnd, selecting, handleDayClick };
 }

@@ -1,6 +1,4 @@
-// ─── MonthNav ─────────────────────────────────────────────────────────────────
 // Renders the navigation bar: ‹ prev button, month+year title, next › button.
-// Owns no state — calls onPrev / onNext provided by the parent.
 
 export default function MonthNav({ monthName, year, onPrev, onNext }) {
   return (

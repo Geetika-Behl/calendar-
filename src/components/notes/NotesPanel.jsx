@@ -14,7 +14,7 @@ export default function NotesPanel({
 }) {
   return (
     <div className="notes-sidebar">
-      <div className="notes-label">📝 Monthly Notes</div>
+      <div className="notes-label">Monthly Notes</div>
 
       <textarea
         className="notes-textarea"

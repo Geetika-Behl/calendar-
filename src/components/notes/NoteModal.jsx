@@ -53,7 +53,7 @@ export default function NoteModal({
             Cancel
           </button>
           <button className="btn-save" onClick={onSave}>
-            Save ⌘↵
+            Save 
           </button>
         </div>
       </div>
