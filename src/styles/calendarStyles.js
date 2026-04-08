@@ -1,17 +1,8 @@
 export function buildCalendarStyles(palette, isDark) {
   const accent = isDark ? palette.dark : palette.accent;
 
-  // Nav bar bg: dark = deep tint of accent, light = very soft tint from palette.bg
-  const navBg = isDark
-    ? `color-mix(in srgb, ${palette.dark} 12%, #16161e)`
-    : palette.bg;
-
-  // Card / body bg
-  const cardBg = isDark
-    ? `color-mix(in srgb, ${palette.dark} 6%, #1c1c24)`
-    : `color-mix(in srgb, ${palette.bg} 40%, #fdf8f3)`;
-
-  // Wave divider fill — must match navBg exactly
+  const navBg = isDark ? "#16161e" : palette.bg;
+  const cardBg = isDark ? "#1c1c24" : `${palette.bg}66`;
   const waveFill = isDark ? "#16161e" : palette.bg;
 
   return `
@@ -196,7 +187,7 @@ export function buildCalendarStyles(palette, isDark) {
       );
       padding-top: 4px;
     }
-    .notes-textarea::placeholder { color: ${isDark ? "#444" : "#c8b8aa"}; }
+    .notes-textarea::placeholder { color: ${isDark ? accent + "90" :  accent + "90"}; }
     .range-info {
       margin-top: 10px; font-size: 11px;
       color: ${accent}; font-weight: 500; line-height: 1.5;
@@ -217,19 +208,48 @@ export function buildCalendarStyles(palette, isDark) {
     .days-grid {
       display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
     }
+
+    /* ── Day cell ── */
     .day-cell {
-      aspect-ratio: 1; display: flex;
-      align-items: center; justify-content: center;
-      border-radius: 6px; cursor: pointer; position: relative;
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
       transition: all 0.15s;
-      font-size: 17px; font-weight: 500;
+      font-size: 17px;
+      font-weight: 500;
       color: ${isDark ? "#ddd" : "#2a2a2a"};
       user-select: none;
+      padding: 4px 2px;
     }
+
+    /* ── Day content stacking ── */
+    .day-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      gap: 1px;
+    }
+    .day-number {
+      line-height: 1;
+      font-size: 17px;
+      font-weight: 500;
+    }
+
+    /* ── Other month dates — noticeably darker ── */
     .day-cell.other-month {
-      color: ${isDark ? "#333" : "#d0c4ba"};
-      cursor: default; pointer-events: none;
+      color: ${isDark ? "#666" : "#999"};
+      cursor: default;
+      pointer-events: none;
     }
+
     .day-cell:not(.other-month):hover {
       background: ${accent}22;
       color: ${accent}; transform: scale(1.12);
@@ -262,10 +282,30 @@ export function buildCalendarStyles(palette, isDark) {
       font-weight: 600;
     }
     .day-cell.sat.other-month, .day-cell.sun.other-month {
-      color: ${accent}55;
+      color: ${accent}66;
     }
     .day-cell.range-start.sat, .day-cell.range-start.sun,
     .day-cell.range-end.sat,   .day-cell.range-end.sun { color: #fff; }
+
+    /* ── Holiday label below date ── */
+    .holiday-label {
+      font-size: 7px;
+      color: #e55;
+      text-align: center;
+      line-height: 1.1;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-top: 1px;
+      font-style: normal;
+    }
+    .holiday-dot {
+      position: absolute; bottom: 2px; left: 50%;
+      transform: translateX(-50%);
+      width: 3px; height: 3px; border-radius: 50%;
+      background: #e55;
+    }
 
     .controls-bar {
       display: flex; justify-content: flex-end;
@@ -361,24 +401,6 @@ export function buildCalendarStyles(palette, isDark) {
     }
     .btn-delete:hover { background: #fee; }
 
-    .holiday-dot {
-      position: absolute; bottom: 2px; left: 50%;
-      transform: translateX(-50%);
-      width: 3px; height: 3px; border-radius: 50%;
-      background: #e55;
-    }
-    .holiday-label {
-      font-size: 7px;
-      margin-top: 2px;
-      color: #e55;
-      text-align: center;
-      line-height: 1.1;
-      max-width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
     .selection-hint {
       text-align: center; font-size: 11px;
       color: ${isDark ? "#555" : "#c8b8aa"};
@@ -398,6 +420,7 @@ export function buildCalendarStyles(palette, isDark) {
       .hero-section { height: 240px; }
       .hero-month   { font-size: 36px; }
       .day-cell     { font-size: 12px; }
+      .day-number   { font-size: 12px; }
     }
   `;
 }
